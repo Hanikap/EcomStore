@@ -4,27 +4,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { setPriceRange } from "../Redux/Slicer/GlobalSlice";
 
 const PriceSlider = () => {
-
-  /**
- * Retrieves the current price range from the Redux store using the useSelector hook.
- *
- * @constant {Array<number>}
- * @name priceRange
- * @memberof YourComponent
- */
   const priceRange = useSelector((state) => state.price.priceRange);
   const dispatch = useDispatch();
 
 
   /**
- * Handles changes in the price range by dispatching an action to update the price range in the Redux store.
+ * Handles the change in the price range by dispatching the setPriceRange action.
  *
+ * @param {Event} event - The event object triggered by the price change.
+ * @param {Array<number>} newValue - The new values for the price range.
+ * @returns {void}
  * @function
  * @name handlePriceChange
- * @memberof YourComponent
- * @param {Event} event - The event object from the price change.
- * @param {Array<number>} newValue - The new price range values.
- * @returns {void}
+ * @memberOf YourComponent
  */
   const handlePriceChange = (event, newValue) => {
     dispatch(setPriceRange(newValue));

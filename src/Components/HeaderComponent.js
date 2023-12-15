@@ -7,7 +7,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useSelector } from "react-redux";
 import SearchComponent from "./SearchComponent";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
-import PriceSlider from "./PriceSlider";
+import PriceSlider from "./PriceSlider"
 
 const HeaderComponent = () => {
   const productss = useSelector((state) => state.Product.products);

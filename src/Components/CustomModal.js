@@ -17,11 +17,29 @@ const CustomModal = ({ open, onClose, data }) => {
     boxShadow: 24,
     p: 4,
   };
+  /**
+ * Handles hover events by setting the 'isHovered' state to true.
+ *
+ * @function
+ * @name handleHover
+ * @memberof YourComponent
+ * @returns {void}
+ */
 
   const handleHover = () => {
     setIsHovered(true);
   };
 
+  
+  
+/**
+ * Handles leave events by setting the 'isHovered' state to false.
+ *
+ * @function
+ * @name handleLeave
+ * @memberof YourComponent
+ * @returns {void}
+ */
   const handleLeave = () => {
     setIsHovered(false);
   };

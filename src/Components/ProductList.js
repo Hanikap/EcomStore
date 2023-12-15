@@ -40,20 +40,23 @@ const ProductList = () => {
 
   useEffect(() => {
     const lowerCaseQuery = (searchQuery || "").toLowerCase();
-    const filteredProducts = productss
-      .filter((product) => {
-        return (
-          product.title.toLowerCase().includes(lowerCaseQuery) ||
-          product.category.toString().includes(lowerCaseQuery)
-        );
-      })
-      .filter((product) => {
-        const productPrice = parseInt(product.price);
-        return productPrice >= priceRange[0] && productPrice <= priceRange[1];
-      });
+    const filteredBySearch = productss.filter((product) => {
+      return (
+        product.title.toLowerCase().includes(lowerCaseQuery) ||
+        product.category.toString().includes(lowerCaseQuery)
+      );
+    });
+    setFilteredProducts(filteredBySearch);
+  }, [searchQuery, productss]);
 
-    setFilteredProducts(filteredProducts);
-  }, [searchQuery, productss, priceRange]);
+  
+  useEffect(() => {
+    const filteredByPrice = productss.filter((product) => {
+      const productPrice = parseInt(product.price);
+      return productPrice >= priceRange[0] && productPrice <= priceRange[1];
+    });
+    setFilteredProducts(filteredByPrice);
+  }, [priceRange, productss]);
 
   const getProducts = () => {
     axios
@@ -76,6 +79,16 @@ const ProductList = () => {
       });
   };
 
+
+  /**
+ * Adds an item to the cart by updating the quantity and 'isAddedToCart' flag in the Redux store.
+ *
+ * @function
+ * @name addItemToCart
+ * @memberof YourComponent
+ * @param {Object} product - The product to be added to the cart.
+ * @returns {void}
+ */
   const addItemToCart = (product) => {
     const updatedProducts = productss.map((p) => {
       if (p.id === product.id) {
@@ -90,6 +103,16 @@ const ProductList = () => {
     dispatch(update(updatedProducts));
   };
 
+
+  /**
+ * Removes an item from the cart by updating the quantity in the Redux store.
+ *
+ * @function
+ * @name removeItemFromCart
+ * @memberof YourComponent
+ * @param {Object} product - The product to be removed from the cart.
+ * @returns {void}
+ */
   const removeItemFromCart = (product) => {
     const updatedProducts = productss.map((p) => {
       if (p.id === product.id && p.quantity > 0) {
@@ -103,6 +126,16 @@ const ProductList = () => {
     dispatch(update(updatedProducts));
   };
 
+
+  /**
+ * Marks a product for comparison by setting the 'isCompare' flag in the Redux store.
+ *
+ * @function
+ * @name compareProduct
+ * @memberof YourComponent
+ * @param {Object} product - The product to be marked for comparison.
+ * @returns {void}
+ */
   const compareProduct = (product) => {
     const updatedProducts = productss.map((p) => {
       if (p.id === product.id) {
@@ -116,6 +149,16 @@ const ProductList = () => {
     dispatch(update(updatedProducts));
   };
 
+  
+/**
+ * Toggles the wishlist status of a product by updating the 'isWishlist' flag in the Redux store.
+ *
+ * @function
+ * @name handleWishlistToggle
+ * @memberof YourComponent
+ * @param {Object} product - The product for which the wishlist status is toggled.
+ * @returns {void}
+ */
   const handleWishlistToggle = (product) => {
     const updatedProducts = productss.map((p) => {
       if (p.id === product.id) {
@@ -129,11 +172,30 @@ const ProductList = () => {
     dispatch(update(updatedProducts));
   };
 
+
+  /**
+ * Opens a modal with details of a product.
+ *
+ * @function
+ * @name handelOpen
+ * @memberof YourComponent
+ * @param {Object} product - The product for which the modal is opened.
+ * @returns {void}
+ */
   const handelOpen = (product) => {
     setModalData(product);
     setOpen(true);
   };
 
+
+  /**
+ * Closes the modal.
+ *
+ * @function
+ * @name handelClose
+ * @memberof YourComponent
+ * @returns {void}
+ */
   const handelClose = () => {
     setOpen(false);
     setModalData(null);

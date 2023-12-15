@@ -58,12 +58,15 @@ function RegistrationForm() {
     };
 
     getCountry();
+      //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     const getStates = async () => {
       try {
         const response = await axios.get(
+
+            //eslint-disable-next-line
           `https://www.universal-tutorial.com/api/states/${formData.country}`,
           config
         );
@@ -74,6 +77,7 @@ function RegistrationForm() {
     };
 
     getStates();
+      //eslint-disable-next-line
   }, [formData.country]);
 
   useEffect(() => {
@@ -90,27 +94,77 @@ function RegistrationForm() {
     };
 
     getCity();
+      //eslint-disable-next-line
   }, [formData.state]);
 
+
+  /**
+ * Handles changes in form input by updating the form data and resetting the corresponding error.
+ *
+ * @function
+ * @name handleChange
+ * @memberof YourComponent
+ * @param {Event} event - The input change event.
+ * @returns {void}
+ */
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
     setErrors({ ...errors, [name]: "" });
   };
 
+
+  /**
+ * Toggles the visibility of the password input.
+ *
+ * @function
+ * @name handlePasswordVisibility
+ * @memberof YourComponent
+ * @returns {void}
+ */
   const handlePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
+
+  /**
+ * Validates a username against a regular expression.
+ *
+ * @function
+ * @name validateUsername
+ * @memberof YourComponent
+ * @param {string} username - The username to validate.
+ * @returns {boolean} - Returns true if the username is valid, false otherwise.
+ */
   const validateUsername = (username) => {
     const usernameRegex = /^[a-zA-Z-_]+$/;
     return usernameRegex.test(username);
   };
 
+
+  /**
+ * Validates an email address against a regular expression.
+ *
+ * @function
+ * @name validateEmail
+ * @memberof YourComponent
+ * @param {string} email - The email address to validate.
+ * @returns {boolean} - Returns true if the email is valid, false otherwise.
+ */
   const validateEmail = (email) => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailRegex.test(email);
   };
+
+  /**
+ * Validates a password against a regular expression.
+ *
+ * @function
+ * @name validatePassword
+ * @memberof YourComponent
+ * @param {string} password - The password to validate.
+ * @returns {boolean} - Returns true if the password is valid, false otherwise.
+ */
 
   const validatePassword = (password) => {
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;

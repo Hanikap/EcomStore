@@ -3,40 +3,37 @@ import { AppBar, Toolbar, Button, Typography, Box } from "@mui/material";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import UserModal from "./UserModal";
-import { IconButton } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useSelector } from "react-redux";
 import SearchComponent from "./SearchComponent";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
-import PriceSlider from "./PriceSlider"
+import PriceSlider from "./PriceSlider";
 
 const HeaderComponent = () => {
   const productss = useSelector((state) => state.Product.products);
-  const cart = useSelector((state) => state.Product.cart);
-  const wishlist = useSelector((state) => state.Product.wishlist);
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [cartQuantity, setCartQuantity] = useState("");
   const [wishlistQuantity, setWishlistQuantity] = useState("");
 
   const [searchQuery, setSearchQuery] = useState("");
-  const handleSearchChange = (newSearchQuery) => {
-    setSearchQuery(newSearchQuery);
-  };
   const [priceRange, setPriceRange] = useState([0, 300]);
-
-  const handlePriceChange = (event, newValue) => {
-    setPriceRange(newValue);
-  };
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("loggedInUser"));
     setLoggedInUser(user);
+    // eslint-disable-next-line
   }, [localStorage.getItem("loggedInUser")]);
+
+  const handleSearchChange = (newSearchQuery) => {
+    setSearchQuery(newSearchQuery);
+  };
+
+  const handlePriceChange = (event, newValue) => {
+    setPriceRange(newValue);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
@@ -44,29 +41,22 @@ const HeaderComponent = () => {
     navigate("/");
   };
 
-  const handleUserClick = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
   const updateCartQuantity = () => {
-    setCartQuantity(
-      productss.filter((product) => product.isAddedToCart).length
-    );
+    setCartQuantity(productss.filter((product) => product.isAddedToCart).length);
   };
 
   const updateWishlistQuantity = () => {
-    setWishlistQuantity(
-      productss.filter((product) => product.isWishlist).length
-    );
+    setWishlistQuantity(productss.filter((product) => product.isWishlist).length);
   };
+
   useEffect(() => {
     updateCartQuantity();
+    // eslint-disable-next-line
   }, [productss]);
+
   useEffect(() => {
     updateWishlistQuantity();
+    // eslint-disable-next-line
   }, [productss]);
 
   return (
@@ -74,17 +64,14 @@ const HeaderComponent = () => {
       <Container maxWidth="lg">
         <Toolbar>
           <Typography variant="h6" component="div">
-           
-            <Link to="/" style={{ textDecoration: "none", color: "white" }}>  Ecommerce Store</Link>
+            <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+              {" "}
+              Ecommerce Store
+            </Link>
           </Typography>
 
-          <Box
-            sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end" }}
-          >
-            <SearchComponent
-              searchQuery={searchQuery}
-              onSearchChange={handleSearchChange}
-            />
+          <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end" }}>
+            <SearchComponent searchQuery={searchQuery} onSearchChange={handleSearchChange} />
           </Box>
 
           <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -133,12 +120,7 @@ const HeaderComponent = () => {
                 <Button component={Link} to="/compare" color="inherit">
                   Compare
                 </Button>
-                <Typography
-                  variant="h6"
-                  component="div"
-                  sx={{ marginLeft: "10px", cursor: "pointer" }}
-                  onClick={handleUserClick}
-                >
+                <Typography variant="h6" component="div" sx={{ marginLeft: "10px", cursor: "pointer" }}>
                   {loggedInUser && loggedInUser.username
                     ? loggedInUser.username.charAt(0)
                     : ""}

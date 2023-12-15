@@ -3,39 +3,62 @@ import {
   Container,
   Paper,
   Typography,
-  Button,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Box,
   Select,
-  InputLabel,
-  FormControl,
   MenuItem,
 } from "@mui/material";
 import { useSelector } from "react-redux";
 
 const Compare = () => {
+
+  // 1st Step
+  /**
+   * Retrieves products from the Redux store and applies a basic filter.
+   *
+   * @type {Array<Object>}
+   */
   const compareItems = useSelector((state) =>
     state?.Product?.products?.filter((product) => product)
   );
   //2nd step
+    /**
+   * Manages the selected category state.
+   *
+   * @type {[string, Function]}
+   */
   const [selectedCategory, setSelectedCategory] = useState("");
 
   //3rd step
+    /**
+   * Filters items based on the selected category.
+   *
+   * @type {Array<Object>}
+   */
   const filteredItems =
     selectedCategory === "All"
       ? compareItems
       : compareItems.filter((item) => item.category === selectedCategory);
   //2nd step
+   /**
+   * Retrieves unique categories from the compared items.
+   *
+   * @type {Array<string>}
+   */
   const uniqueCategories = [
     ...new Set(compareItems?.map((item) => item.category)),
   ];
 
   //4th step step
+  /**
+   * Filters items further based on whether they are marked for comparison.
+   *
+   * @type {Array<Object>}
+   */
   const compareData = filteredItems?.filter((item) => item.isCompare);
   return (
     <Container>

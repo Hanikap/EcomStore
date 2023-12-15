@@ -28,21 +28,61 @@ const LoginForm = () => {
     }
   }, []);
 
+
+  /**
+ * Handles form input changes by updating the form data.
+ *
+ * @function
+ * @name handleChange
+ * @memberof YourComponent
+ * @param {Event} event - The input change event.
+ * @returns {void}
+ */
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
+
+  /**
+ * Validates the provided email address against a regular expression.
+ *
+ * @function
+ * @name validateEmail
+ * @memberof YourComponent
+ * @param {string} email - The email address to validate.
+ * @returns {boolean} - Returns true if the email is valid, false otherwise.
+ */
 
   const validateEmail = (email) => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailRegex.test(email);
   };
 
+  
+/**
+ * Validates the provided password against a regular expression.
+ *
+ * @function
+ * @name validatePassword
+ * @memberof YourComponent
+ * @param {string} password - The password to validate.
+ * @returns {boolean} - Returns true if the password is valid, false otherwise.
+ */
   const validatePassword = (password) => {
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
     return passwordRegex.test(password);
   };
 
+
+  /**
+ * Handles the form submission, validates input data, and logs in the user if valid.
+ *
+ * @function
+ * @name handleSubmit
+ * @memberof YourComponent
+ * @param {Event} event - The form submission event.
+ * @returns {void}
+ */
   const handleSubmit = (event) => {
     event.preventDefault();
     const validationErrors = {};
